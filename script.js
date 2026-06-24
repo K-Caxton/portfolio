@@ -22,6 +22,48 @@ navAnchors.forEach(link => {
     });
 });
 
+// Rotating headline word
+const words = ['Decisions', 'Insights', 'Solutions'];
+let wordIndex = 0;
+const rotatingEl = document.getElementById('rotatingWord');
+
+if (rotatingEl) {
+    setInterval(() => {
+        rotatingEl.style.opacity = '0';
+        rotatingEl.style.transform = 'translateY(12px)';
+        setTimeout(() => {
+            wordIndex = (wordIndex + 1) % words.length;
+            rotatingEl.textContent = words[wordIndex];
+            rotatingEl.style.transform = 'translateY(-12px)';
+            requestAnimationFrame(() => {
+                rotatingEl.style.transform = 'translateY(0)';
+                rotatingEl.style.opacity = '1';
+            });
+        }, 350);
+    }, 3500);
+}
+
+// Stat counters
+function animateCounters() {
+    document.querySelectorAll('.counter').forEach(el => {
+        const target = +el.dataset.target;
+        const duration = 1600;
+        const start = performance.now();
+
+        function tick(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * target);
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target;
+        }
+        requestAnimationFrame(tick);
+    });
+}
+
+setTimeout(animateCounters, 800);
+
+// Scroll reveal
 const revealObserver = new IntersectionObserver(
     entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
