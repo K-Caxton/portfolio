@@ -6,7 +6,7 @@ Personal portfolio site for Caxton Kiptoo, Data Analyst & Developer.
 
 Once deployed, the site will be available at:
 
-**https://kcaxton.github.io/portfolio/**
+**https://K-Caxton.github.io/portfolio/**
 
 
 ## Auto-Deploy on Push
