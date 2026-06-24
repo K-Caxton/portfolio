@@ -8,7 +8,6 @@ Once deployed, the site will be available at:
 
 **https://kcaxton.github.io/portfolio/**
 
-(or **https://kcaxton.github.io** if you use a `kcaxton.github.io` repository)
 
 ## Auto-Deploy on Push
 
