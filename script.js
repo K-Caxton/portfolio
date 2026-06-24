@@ -29,18 +29,9 @@ const rotatingEl = document.getElementById('rotatingWord');
 
 if (rotatingEl) {
     setInterval(() => {
-        rotatingEl.style.opacity = '0';
-        rotatingEl.style.transform = 'translateY(12px)';
-        setTimeout(() => {
-            wordIndex = (wordIndex + 1) % words.length;
-            rotatingEl.textContent = words[wordIndex];
-            rotatingEl.style.transform = 'translateY(-12px)';
-            requestAnimationFrame(() => {
-                rotatingEl.style.transform = 'translateY(0)';
-                rotatingEl.style.opacity = '1';
-            });
-        }, 350);
-    }, 3500);
+        wordIndex = (wordIndex + 1) % words.length;
+        rotatingEl.textContent = words[wordIndex];
+    }, 1500);
 }
 
 // Stat counters
