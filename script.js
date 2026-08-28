@@ -10,6 +10,7 @@ window.addEventListener('scroll', () => {
 
 navToggle.addEventListener('click', () => {
     const open = navLinks.classList.toggle('open');
+
     navToggle.classList.toggle('open', open);
     navToggle.setAttribute('aria-expanded', open);
 });
@@ -22,171 +23,433 @@ navAnchors.forEach(link => {
     });
 });
 
+
+// ─────────────────────────────────────────────
 // Rotating headline word
+// ─────────────────────────────────────────────
+
 const words = ['Decisions', 'Insights', 'Solutions'];
+
 let wordIndex = 0;
+
 const rotatingEl = document.getElementById('rotatingWord');
 
 if (rotatingEl) {
+
     setInterval(() => {
+
         wordIndex = (wordIndex + 1) % words.length;
+
         rotatingEl.textContent = words[wordIndex];
+
     }, 1500);
+
 }
 
+
+// ─────────────────────────────────────────────
 // Stat counters
+// ─────────────────────────────────────────────
+
 function animateCounters() {
+
     document.querySelectorAll('.counter').forEach(el => {
-        if (el.id === 'project-count') return;
+
         const target = +el.dataset.target;
+
         const duration = 1600;
+
         const start = performance.now();
 
         function tick(now) {
-            const progress = Math.min((now - start) / duration, 1);
+
+            const progress = Math.min(
+                (now - start) / duration,
+                1
+            );
+
             const eased = 1 - Math.pow(1 - progress, 3);
+
             el.textContent = Math.floor(eased * target);
-            if (progress < 1) requestAnimationFrame(tick);
-            else el.textContent = target;
+
+            if (progress < 1) {
+
+                requestAnimationFrame(tick);
+
+            } else {
+
+                el.textContent = target;
+
+            }
+
         }
+
         requestAnimationFrame(tick);
+
     });
-}
 
-function animateProjectCount(count) {
-    const el = document.getElementById('project-count');
-    if (!el) return;
-    el.dataset.target = count;
-    const duration = 1200;
-    const start = performance.now();
-
-    function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(eased * count);
-        if (progress < 1) requestAnimationFrame(tick);
-        else el.textContent = count;
-    }
-    requestAnimationFrame(tick);
 }
 
 setTimeout(animateCounters, 800);
 
+
+// ─────────────────────────────────────────────
 // Scroll reveal
+// ─────────────────────────────────────────────
+
 const revealObserver = new IntersectionObserver(
+
     entries => entries.forEach(entry => {
+
         if (entry.isIntersecting) {
+
             entry.target.classList.add('visible');
+
             revealObserver.unobserve(entry.target);
+
         }
+
     }),
-    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+
+    {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    }
+
 );
 
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+document
+    .querySelectorAll('.reveal')
+    .forEach(el => revealObserver.observe(el));
+
+
+// ─────────────────────────────────────────────
+// Active navigation section
+// ─────────────────────────────────────────────
 
 const sectionObserver = new IntersectionObserver(
+
     entries => entries.forEach(entry => {
+
         if (entry.isIntersecting) {
+
             const id = entry.target.id;
+
             navAnchors.forEach(a => {
-                a.classList.toggle('active', a.getAttribute('href') === `#${id}`);
+
+                a.classList.toggle(
+                    'active',
+                    a.getAttribute('href') === `#${id}`
+                );
+
             });
+
         }
+
     }),
-    { threshold: 0.35 }
+
+    {
+        threshold: 0.35
+    }
+
 );
 
 sections.forEach(s => sectionObserver.observe(s));
 
-// ── Auto-load projects from GitHub ──
-const PROJECTS_CONFIG = {
-    username: 'K-Caxton',
-    exclude: ['portfolio', 'k-caxton.github.io', 'kcaxton.github.io'],
-};
 
-function formatTitle(name) {
-    return name.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-}
+// ─────────────────────────────────────────────
+// GitHub Portfolio Automation
+// ─────────────────────────────────────────────
 
-function filterRepos(repos) {
-    const exclude = new Set(PROJECTS_CONFIG.exclude.map(r => r.toLowerCase()));
-    return repos
-        .filter(r => !r.private && !r.fork && !exclude.has(r.name.toLowerCase()))
-        .map(r => ({
-            name: r.name,
-            title: formatTitle(r.name),
-            description: r.description || 'A project hosted on GitHub.',
-            url: r.html_url,
-            tags: [...new Set([r.language, ...(r.topics || [])].filter(Boolean))].slice(0, 5),
-            updated: r.updated_at,
-        }))
-        .sort((a, b) => new Date(b.updated) - new Date(a.updated));
-}
+const GITHUB_USERNAME = 'K-Caxton';
 
-async function fetchLiveProjects() {
-    const res = await fetch(
-        `https://api.github.com/users/${PROJECTS_CONFIG.username}/repos?sort=updated&per_page=100`
-    );
-    if (!res.ok) throw new Error('GitHub API unavailable');
-    return filterRepos(await res.json());
-}
+const PORTFOLIO_TOPIC = 'portfolio-project';
 
-async function fetchCachedProjects() {
-    const res = await fetch('projects.json');
-    if (!res.ok) throw new Error('projects.json not found');
-    const data = await res.json();
-    return data.projects || [];
-}
+const githubProjectsContainer =
+    document.getElementById('github-projects');
 
-function renderProjects(projects) {
-    const grid = document.getElementById('projects-grid');
-    if (!grid) return;
 
-    if (!projects.length) {
-        grid.innerHTML = '<p class="projects-empty">No projects found yet. Check back soon.</p>';
+// Load GitHub projects
+async function loadGitHubProjects() {
+
+    if (!githubProjectsContainer) {
         return;
     }
 
-    grid.innerHTML = projects.map((p, i) => `
-        <article class="project-card reveal-item" style="--i:${i}">
-            <div class="project-meta">
-                ${(p.tags || []).map(t => `<span class="project-tag">${t}</span>`).join('')}
-            </div>
-            <h3>${p.title}</h3>
-            <p>${p.description}</p>
-            <a href="${p.url}" target="_blank" rel="noopener" class="project-link">
-                View on GitHub
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-        </article>
-    `).join('');
-
-    updateProjectCount(projects.length);
-}
-
-function updateProjectCount(count) {
-    animateProjectCount(count);
-}
-
-async function loadProjects() {
-    const grid = document.getElementById('projects-grid');
-    let projects = [];
-
     try {
-        projects = await fetchLiveProjects();
-    } catch {
-        try {
-            projects = await fetchCachedProjects();
-        } catch {
-            if (grid) {
-                grid.innerHTML = '<p class="projects-empty">Unable to load projects. Please try again later.</p>';
+
+        const url =
+            `https://api.github.com/search/repositories` +
+            `?q=user:${GITHUB_USERNAME}+topic:${PORTFOLIO_TOPIC}` +
+            `&sort=updated` +
+            `&order=desc` +
+            `&per_page=100`;
+
+        const response = await fetch(url, {
+            headers: {
+                'Accept': 'application/vnd.github+json'
             }
+        });
+
+        if (!response.ok) {
+
+            throw new Error(
+                `GitHub API returned ${response.status}`
+            );
+
+        }
+
+        const data = await response.json();
+
+        const repositories = data.items || [];
+
+        // Remove loading message
+        githubProjectsContainer.innerHTML = '';
+
+        // No projects found
+        if (repositories.length === 0) {
+
+            githubProjectsContainer.innerHTML = `
+                <div class="github-status">
+                    No portfolio projects found yet.
+                </div>
+            `;
+
             return;
         }
+
+        // Create project cards
+        repositories.forEach((repo, index) => {
+
+            const card = createProjectCard(repo);
+
+            githubProjectsContainer.appendChild(card);
+
+            // Small staggered reveal
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, 100 + (index * 100));
+
+        });
+
+    } catch (error) {
+
+        console.error('GitHub project loading error:', error);
+
+        githubProjectsContainer.innerHTML = `
+            <div class="github-status error">
+                Unable to load GitHub projects right now.
+            </div>
+        `;
+
     }
 
-    renderProjects(projects);
 }
 
-loadProjects();
+
+// Create one project card
+function createProjectCard(repo) {
+
+    const card = document.createElement('article');
+
+    card.className = 'github-project-card';
+
+
+    // ─────────────────────────────────────────
+    // Project tags
+    // ─────────────────────────────────────────
+
+    const tags = [];
+
+    // Main programming language
+    if (repo.language) {
+        tags.push(repo.language);
+    }
+
+    // GitHub topics
+    if (Array.isArray(repo.topics)) {
+
+        repo.topics
+            .filter(topic => topic !== PORTFOLIO_TOPIC)
+            .slice(0, 4)
+            .forEach(topic => tags.push(topic));
+
+    }
+
+
+    const tagsHTML = tags.length > 0
+
+        ? tags
+            .map(tag => `
+                <span class="project-tag">
+                    ${escapeHTML(tag)}
+                </span>
+            `)
+            .join('')
+
+        : `
+            <span class="project-tag">
+                Project
+            </span>
+        `;
+
+
+    // ─────────────────────────────────────────
+    // Description
+    // ─────────────────────────────────────────
+
+    const description =
+        repo.description ||
+        'A project developed by Caxton Kiptoo.';
+
+
+    // ─────────────────────────────────────────
+    // Updated date
+    // ─────────────────────────────────────────
+
+    const updatedDate =
+        formatDate(repo.updated_at);
+
+
+    // ─────────────────────────────────────────
+    // Live demo button
+    // ─────────────────────────────────────────
+
+    const liveDemoHTML = repo.homepage
+
+        ? `
+            <a href="${escapeAttribute(repo.homepage)}"
+               target="_blank"
+               rel="noopener">
+
+                Live Demo
+
+                <svg width="14"
+                     height="14"
+                     viewBox="0 0 24 24"
+                     fill="none"
+                     stroke="currentColor"
+                     stroke-width="2">
+
+                    <path d="M14 3h7v7"/>
+                    <path d="M10 14L21 3"/>
+                    <path d="M21 14v7H3V3h7"/>
+
+                </svg>
+
+            </a>
+        `
+
+        : '';
+
+
+    // ─────────────────────────────────────────
+    // Build card
+    // ─────────────────────────────────────────
+
+    card.innerHTML = `
+
+        <div class="github-project-meta">
+            ${tagsHTML}
+        </div>
+
+        <h4>
+            ${escapeHTML(repo.name)}
+        </h4>
+
+        <p class="github-project-description">
+            ${escapeHTML(description)}
+        </p>
+
+        <div class="github-project-footer">
+
+            <span class="github-project-updated">
+                Updated ${updatedDate}
+            </span>
+
+            <div class="github-project-links">
+
+                ${liveDemoHTML}
+
+                <a href="${escapeAttribute(repo.html_url)}"
+                   target="_blank"
+                   rel="noopener">
+
+                    GitHub
+
+                    <svg width="14"
+                         height="14"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2">
+
+                        <path d="M5 12h14"/>
+                        <path d="M12 5l7 7-7 7"/>
+
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+    `;
+
+
+    return card;
+}
+
+
+// ─────────────────────────────────────────────
+// Format GitHub date
+// ─────────────────────────────────────────────
+
+function formatDate(dateString) {
+
+    if (!dateString) {
+        return 'recently';
+    }
+
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString('en-KE', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+
+}
+
+
+// ─────────────────────────────────────────────
+// Basic HTML escaping
+// Prevents GitHub text from being interpreted
+// as HTML inside the page.
+// ─────────────────────────────────────────────
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value);
+
+}
+
+
+// ─────────────────────────────────────────────
+// Start GitHub automation
+// ─────────────────────────────────────────────
+
+loadGitHubProjects();
+console.log("GitHub loader started");
