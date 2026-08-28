@@ -61,8 +61,8 @@
                 <span>Technical Skills</span>
             </div>
             <div class="stat">
-                <strong><span class="counter" data-target="1">0</span></strong>
-                <span>Featured Project</span>
+                <strong><span class="counter" id="project-count" data-target="1">0</span></strong>
+                <span>Featured Projects</span>
             </div>
         </div>
 
@@ -137,104 +137,19 @@
         </div>
     </section>
 
-<section id="projects" class="section reveal">
-    <div class="container">
+    <section id="projects" class="section reveal">
+        <div class="container">
+            <div class="section-intro">
+                <span class="section-label">Portfolio</span>
+                <h2>Featured Projects</h2>
+                <p class="section-lead">Pulled automatically from my GitHub repositories.</p>
+            </div>
 
-        <div class="section-intro">
-            <span class="section-label">Portfolio</span>
-            <h2>Featured Project</h2>
+            <div id="projects-grid" class="projects-grid">
+                <div class="projects-loading">Loading projects…</div>
+            </div>
         </div>
-
-        <!-- Existing featured project -->
-        <article class="project-featured reveal-item">
-            <div class="project-featured-inner">
-
-                <div class="project-left">
-
-                    <div class="project-meta">
-                        <span class="project-tag">Python</span>
-                        <span class="project-tag">EDA</span>
-                        <span class="project-tag">Visualization</span>
-                        <span class="project-tag">Statistics</span>
-                    </div>
-
-                    <h3>Student Performance Analysis</h3>
-
-                    <p>
-                        Conducted exploratory data analysis on a dataset of 1,000 student records,
-                        examining the impact of test preparation courses, parental education,
-                        and other contributing factors on examination outcomes.
-                    </p>
-
-                    <p>
-                        The project involved data cleaning, statistical exploration,
-                        visualization, and insight generation using Python — turning
-                        raw academic data into actionable findings.
-                    </p>
-
-                    <a href="https://github.com/K-Caxton/Student-performance"
-                       target="_blank"
-                       rel="noopener"
-                       class="project-link">
-
-                        View on GitHub
-
-                        <svg width="16"
-                             height="16"
-                             viewBox="0 0 24 24"
-                             fill="none"
-                             stroke="currentColor"
-                             stroke-width="2.5">
-
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-
-                        </svg>
-
-                    </a>
-
-                </div>
-
-                <div class="project-right">
-
-                    <div class="project-visual">
-                        <div class="visual-bar" style="--h:60%"></div>
-                        <div class="visual-bar" style="--h:85%"></div>
-                        <div class="visual-bar" style="--h:45%"></div>
-                        <div class="visual-bar" style="--h:72%"></div>
-                        <div class="visual-bar" style="--h:90%"></div>
-                        <div class="visual-bar" style="--h:55%"></div>
-                    </div>
-
-                    <p class="visual-caption">
-                        Performance indicators across 1,000 records
-                    </p>
-
-                </div>
-
-            </div>
-        </article>
-
-
-        <!-- GitHub projects -->
-        <div class="github-projects-wrap">
-
-            <div class="github-projects-heading">
-                <span class="section-label">GitHub</span>
-                <h3>More Projects</h3>
-            </div>
-
-            <div id="github-projects" class="github-projects">
-
-                <div class="github-status" id="github-status">
-                    Loading projects...
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</section>
+    </section>
 
     <section id="contact" class="section section-dark reveal">
         <div class="container">
