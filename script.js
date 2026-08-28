@@ -166,7 +166,7 @@ const GITHUB_USERNAME = 'K-Caxton';
 const PORTFOLIO_TOPIC = 'portfolio-project';
 
 const githubProjectsContainer =
-    document.getElementById('projects-grid');
+    document.getElementById('github-projects');
 
 
 // Load GitHub projects
