@@ -1,0 +1,22 @@
+# Copy this file into ANY project repo as:
+#   .github/workflows/update-portfolio.yml
+#
+# When you push to that repo, it tells your portfolio to refresh its project list.
+# Requires a Personal Access Token stored as PORTFOLIO_PAT in that repo's secrets.
+
+name: Update Portfolio
+
+on:
+  push:
+    branches: [main, master]
+
+jobs:
+  notify-portfolio:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger portfolio sync
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PORTFOLIO_PAT }}
+          repository: K-Caxton/portfolio
+          event-type: sync-projects

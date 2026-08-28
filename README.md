@@ -1,9 +1,9 @@
 # Caxton Kiptoo — Portfolio
 
-Personal portfolio site for Caxton Kiptoo, Data Analyst & Developer.
+Personal portfolio site that **automatically pulls your GitHub repositories** into the Featured Projects section.
 
 ## Live Site
 
-Once deployed, the site will be available at:
-
 **https://K-Caxton.github.io/portfolio/**
+
+ 
