@@ -452,3 +452,4 @@ function escapeAttribute(value) {
 // ─────────────────────────────────────────────
 
 loadGitHubProjects();
+console.log("GitHub loader started");
