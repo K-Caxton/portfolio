@@ -1,6 +1,6 @@
 # Caxton Kiptoo — Portfolio
 
-Personal portfolio site that **automatically pulls your GitHub repositories** into the Featured Projects section.
+Personal portfolio site that automatically pulls my GitHub repositories into the Featured Projects section.
 
 ## Live Site
 
