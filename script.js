@@ -178,9 +178,9 @@ async function loadGitHubProjects() {
 
         const data = await response.json();
         const projectCount = document.getElementById('project-count');
-
         if (projectCount) {
             projectCount.dataset.target = projects.length;
+            projectCount.textContent = projects.length;
         }
         const projects = data.projects || [];
 
