@@ -177,12 +177,14 @@ async function loadGitHubProjects() {
         }
 
         const data = await response.json();
+        const projects = data.projects || [];
+        
         const projectCount = document.getElementById('project-count');
+        
         if (projectCount) {
             projectCount.dataset.target = projects.length;
             projectCount.textContent = projects.length;
         }
-        const projects = data.projects || [];
 
         githubProjectsContainer.innerHTML = '';
 
