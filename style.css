@@ -610,8 +610,9 @@ header.scrolled {
     transition: gap 0.25s;
 }
 
-.project-link:hover { gap: 14px;  
-
+.project-link:hover {
+    gap: 14px;
+}
 /* ── Legacy featured project (removed) ── */
     border-radius: calc(var(--radius) + 4px);
     overflow: hidden;
