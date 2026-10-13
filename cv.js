@@ -175,6 +175,7 @@ function renderProfile(profile) {
         <section class="cv-profile">
             ${tag("h1", profile.name)}
             ${tag("p", profile.headline, "cv-headline")}
+            ${tag("p", profile.subtitle, "cv-subtitle")}
             ${tag("p", profile.summary)}
             ${tag("p", profile.tagline, "cv-tagline")}
             ${contact ? `<p class="cv-contact">${contact}</p>` : ""}
