@@ -1,0 +1,110 @@
+{
+"targetRoles": [
+    "Data Analyst Intern",
+    "Data Scientist Intern"
+],
+"profile": {
+    "name": "Caxton Kiptoo",
+    "headline": "Statistics and Data Science Student",
+    "summary": "Statistics and Data Science student at Strathmore University building practical data analysis and machine learning projects using Python. Interested in turning data into meaningful insights that support informed decision-making.",
+    "tagline": "Turning Data into Insights, Solutions, Decisions",
+    "location": "Kenya",
+    "email": "caxtonkiptoo9@gmail.com",
+    "github": "https://github.com/K-Caxton",
+    "portfolio": "https://k-caxton.github.io/portfolio/",
+    "linkedin": ""
+},
+"education": [
+    {
+    "institution": "Strathmore University",
+    "qualification": "BSc Statistics and Data Science",
+    "startYear": 2023,
+    "endYear": null,
+    "status": "In progress",
+    "grade": "",
+    "relevantCoursework": [
+        "Statistics",
+        "Machine Learning",
+        "Databases",
+        "Python",
+        "Exploratory Data Analysis (EDA)",
+        "Data Visualization and Exploration (DVE)"
+    ]
+    },
+    {
+    "institution": "Maranda High School",
+    "qualification": "Kenya Certificate of Secondary Education (KCSE)",
+    "startYear": 2020,
+    "endYear": 2023,
+    "grade": "B+"
+    },
+    {
+    "institution": "Chumo Educational Center",
+    "qualification": "Kenya Certificate of Primary Education (KCPE)",
+    "startYear": 2010,
+    "endYear": 2019,
+    "grade": "A Plain"
+    }   
+],
+"skills": {
+    "programming": [
+    "Python"
+    ],
+    "dataAnalysis": [
+    "Pandas",
+    "Exploratory Data Analysis",
+    "Data Cleaning",
+    "Statistical Analysis"
+    ],
+    "machineLearning": [
+    "Scikit-learn",
+    "Model Evaluation"
+    ],
+    "visualization": [
+    "Matplotlib",
+    "Seaborn",
+    "Power BI (learning)"
+    ],
+    "tools": [
+    "Jupyter Notebook",
+    "Git",
+    "GitHub",
+    "Streamlit"
+    ],
+    "other": [
+    "Problem Solving",
+    "Teamwork"
+    ]
+},
+"achievements": [
+"Developed a Customer Churn Prediction System using Python and Scikit-learn, applying machine learning techniques to predict customer churn, evaluate model performance, and deploy an interactive Streamlit application.",
+"Completed a Sales Forecasting and Business Intelligence Project using Python and Power BI to analyze sales performance, profitability, regional trends, product categories, and discount strategies, translating findings into actionable business insights.",
+"Built a Student Performance Analysis Project using Python to explore academic performance data, identify patterns, and communicate findings through exploratory data analysis and visualizations.",
+"Developed a House Price Prediction Project using Python and Scikit-learn, applying decision tree regression and data preprocessing techniques to estimate property prices from housing characteristics."
+],
+"experience": [
+"Coursework Projects, individual and group(team) assignments"
+],
+"volunteering": [
+    {
+    "title": "Service-Based Learning Volunteer",
+    "organization": "Heritage of Faith and Hope Children's Home and School",
+    "startDate": "2nd February 2026",
+    "endDate": "13th March 2026",
+    "description": "Provided assistance and support at an orphanage that also served as a school.",
+    "status": "Completed."
+    }
+],
+"certifications": [],
+"licenses": [],
+"additionalActivities": [],
+"projectsSource": "projects.json",
+"preferences": {
+    "showAchievements": true,
+    "showExperience": true,
+    "showVolunteering": true,
+    "showCertifications": true,
+    "showLicenses": false,
+    "showAdditionalActivities": true
+}
+}

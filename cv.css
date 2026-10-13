@@ -1,0 +1,375 @@
+/* ---------------------------------------------------------------------------
+Tokens
+Palette: paper, surface, ink, muted, rule, accent (+ a faint plot grid).
+Type: Georgia-style serif for name and section titles, system sans for body.
+--------------------------------------------------------------------------- */
+:root {
+    --paper: #f3f6f9;
+    --surface: #ffffff;
+    --ink: #14213d;
+    --muted: #55637a;
+    --rule: #d3dbe5;
+    --accent: #2b50aa;
+    --grid: rgba(43, 80, 170, 0.08);
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    --content-width: 760px;
+    --header-height: 3.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #0f1720;
+        --surface: #16212d;
+        --ink: #e8eef5;
+        --muted: #9aa8b8;
+        --rule: #263445;
+        --accent: #8aaeff;
+        --grid: rgba(138, 174, 255, 0.07);
+    }
+}
+
+/* ---------------------------------------------------------------------------
+Base
+--------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: var(--accent);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+}
+
+a:hover {
+    text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   Header (sticky, so it never covers the content)
+--------------------------------------------------------------------------- */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1.5rem;
+    min-height: var(--header-height);
+    /* lines the header content up with the CV column below it */
+    padding: 0.5rem max(1.25rem, calc((100% - var(--content-width)) / 2));
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+}
+
+header a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+header a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+/* first link in the header is treated as the name/brand */
+header > a:first-child {
+    margin-right: 0.5rem;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+}
+
+#download-cv {
+    margin-left: auto;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: var(--accent);
+    color: var(--paper);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#download-cv:hover {
+    background: transparent;
+    color: var(--accent);
+}
+
+/* ---------------------------------------------------------------------------
+   CV column
+--------------------------------------------------------------------------- */
+#cv-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Profile: the one memorable element, a plot-paper panel
+--------------------------------------------------------------------------- */
+.cv-profile {
+    position: relative;
+    overflow: hidden;
+    padding: 2rem 1.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--surface);
+}
+
+.cv-profile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(to bottom left, #000, transparent 70%);
+    mask-image: linear-gradient(to bottom left, #000, transparent 70%);
+    pointer-events: none;
+}
+
+.cv-profile > * {
+    position: relative;
+}
+
+.cv-profile h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 7vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+.cv-headline {
+    margin: 0.5rem 0 1.25rem;
+    color: var(--accent);
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.cv-profile p {
+    max-width: 62ch;
+    margin: 0 0 0.75rem;
+}
+
+.cv-tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--muted);
+}
+
+.cv-contact {
+    margin: 1.25rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Sections: a left rule works as an axis, entries sit on it as ticks
+--------------------------------------------------------------------------- */
+.cv-section {
+    position: relative;
+    margin-top: 3rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--rule);
+    scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.cv-section h2 {
+    margin: 0 0 1.25rem;
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.cv-item {
+    position: relative;
+    margin-bottom: 1.75rem;
+}
+
+.cv-item::before {
+    content: "";
+    position: absolute;
+    top: 0.8rem;
+    left: calc(-1.5rem - 2px);
+    width: 0.9rem;
+    height: 2px;
+    background: var(--accent);
+}
+
+.cv-item h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.1rem;
+    line-height: 1.35;
+}
+
+.cv-item h3 a {
+    color: var(--ink);
+    text-decoration-color: var(--accent);
+}
+
+.cv-item h3 a:hover {
+    color: var(--accent);
+}
+
+.cv-item p {
+    margin: 0.2rem 0;
+}
+
+/* Skills: label column + values column */
+#skills p {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 0.25rem 1rem;
+    margin: 0 0 0.6rem;
+}
+
+#skills strong {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* Plain-text lists (achievements, certifications, etc.) */
+.cv-section > p {
+    margin: 0 0 0.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Small screens
+--------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+    #cv-content {
+        padding-top: 1.5rem;
+    }
+
+    .cv-profile {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .cv-section {
+        padding-left: 1.1rem;
+    }
+
+    .cv-item::before {
+        left: calc(-1.1rem - 2px);
+        width: 0.7rem;
+    }
+
+    #skills p {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    #download-cv {
+        margin-left: 0;
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Print / Save as PDF
+--------------------------------------------------------------------------- */
+@page {
+    margin: 14mm;
+}
+
+@media print {
+    :root {
+        --paper: #fff;
+        --surface: #fff;
+        --ink: #000;
+        --muted: #333;
+        --rule: #bbb;
+        --accent: #000;
+    }
+
+    body {
+        font-size: 10.5pt;
+        line-height: 1.5;
+    }
+
+    header {
+        display: none;
+    }
+
+    #cv-content {
+        max-width: none;
+        padding: 0;
+    }
+
+    .cv-profile {
+        padding: 0 0 1rem;
+        border: 0;
+        border-bottom: 1px solid var(--rule);
+        border-radius: 0;
+    }
+
+    .cv-profile::before {
+        display: none;
+    }
+
+    .cv-section {
+        margin-top: 1.5rem;
+    }
+
+    .cv-item,
+    #skills p {
+        break-inside: avoid;
+    }
+
+    .cv-section h2 {
+        break-after: avoid;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
