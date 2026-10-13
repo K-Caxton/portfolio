@@ -2,31 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CV of a Statistics and Data Science student interested in data analytics and machine learning.">
-    <title>My CV | Caxton Kiptoo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Caxton Kiptoo | CV</title>
     <link rel="stylesheet" href="cv.css">
-    <script src="cv.js" defer></script>
 </head>
 <body>
-    <header class="cv-header">
-        <a href="index.html" class="cv-brand">Caxton Kiptoo</a>
-        <nav>
-            <a href="index.html">Portfolio</a>
+    <header>
+        <span class="brand">Caxton Kiptoo</span>
+
+        <nav aria-label="CV sections">
             <a href="#education">Education</a>
             <a href="#projects">Projects</a>
-            <button id="download-cv" type="button">Download PDF</button>
         </nav>
+
+        <button id="download-cv" type="button">Download PDF</button>
     </header>
 
-    <main class="cv-container">
-        <div id="cv-content">
-            <p>Loading CV...</p>
-        </div>
+    <main id="cv-content">
+        <p>Loading CV…</p>
+        <noscript>This CV needs JavaScript enabled to load.</noscript>
     </main>
 
-    <footer class="cv-footer">
-        <p>Turning Data into Insights, Solutions, Decisions</p>
-    </footer>
+    <script src="cv.js"></script>
 </body>
 </html>

@@ -147,14 +147,28 @@ async function loadProjects(profile) {
 // ---------------------------------------------------------------------------
 // Renderers
 // ---------------------------------------------------------------------------
+// "https://github.com/K-Caxton/" -> "github.com/K-Caxton" (easy to read and type)
+const displayURL = (url) =>
+    String(url ?? "").replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+// "GitHub: github.com/K-Caxton", linked, so the URL is visible when printed.
+const contactItem = (label, url, text) => {
+    const anchor = link(url, text);
+    return anchor
+        ? `<span class="cv-contact-item"><strong>${label}:</strong> ${anchor}</span>`
+        : "";
+};
+
 function renderProfile(profile) {
     const contact = [
-        escapeHTML(profile.location),
-        link(profile.email && `mailto:${profile.email}`, profile.email),
-        link(profile.github, "GitHub"),
-        link(profile.portfolio, "Portfolio"),
-        link(profile.linkedin, "LinkedIn")
-    ].filter(Boolean).join(' <span aria-hidden="true">•</span> ');
+        profile.location
+            ? `<span class="cv-contact-item">${escapeHTML(profile.location)}</span>`
+            : "",
+        contactItem("Email", profile.email && `mailto:${profile.email}`, profile.email),
+        contactItem("GitHub", profile.github, displayURL(profile.github)),
+        contactItem("Portfolio", profile.portfolio, displayURL(profile.portfolio)),
+        contactItem("LinkedIn", profile.linkedin, displayURL(profile.linkedin))
+    ].filter(Boolean).join("");
 
     return `
         <section class="cv-profile">

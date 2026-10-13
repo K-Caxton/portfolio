@@ -107,8 +107,8 @@ header a:hover {
     text-decoration: underline;
 }
 
-/* first link in the header is treated as the name/brand */
-header > a:first-child {
+/* your name in the header: plain text, not a link */
+.brand {
     margin-right: 0.5rem;
     font-family: var(--serif);
     font-size: 1.1rem;
@@ -185,7 +185,7 @@ header nav {
     letter-spacing: -0.02em;
 }
 
-.cv-headline {
+.cv-profile .cv-headline {
     margin: 0.5rem 0 1.25rem;
     color: var(--accent);
     font-size: 1.15rem;
@@ -203,12 +203,25 @@ header nav {
     color: var(--muted);
 }
 
-.cv-contact {
+.cv-profile .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.75rem;
+    max-width: none;
     margin: 1.25rem 0 0;
     padding-top: 1rem;
     border-top: 1px solid var(--rule);
     color: var(--muted);
     font-size: 0.95rem;
+}
+
+.cv-contact strong {
+    color: var(--ink);
+    font-weight: 600;
+}
+
+.cv-contact a {
+    overflow-wrap: anywhere;
 }
 
 /* ---------------------------------------------------------------------------
