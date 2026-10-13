@@ -191,6 +191,12 @@ header nav {
     font-size: 1.15rem;
     font-weight: 600;
 }
+.cv-profile .cv-subtitle {
+    margin: -0.75rem 0 1.25rem;
+    color: var(--ink);
+    font-size: 1.05rem;
+    font-weight: 700;
+}
 
 .cv-profile p {
     max-width: 62ch;
