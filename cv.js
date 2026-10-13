@@ -2,7 +2,12 @@
 // Config
 // ---------------------------------------------------------------------------
 const CV_DATA_URL = "./cv-data.json";
-const PROJECTS_DATA_URL = "./projects.json";
+const PROJECTS_DATA_URL = "./projects.json"; // used only as a fallback
+
+// Live GitHub projects
+const MAX_PROJECTS = 8;               // how many repos to show
+const GITHUB_CACHE_MINUTES = 10;      // avoids GitHub's rate limit on repeat visits
+const EXCLUDED_REPOS = ["portfolio"]; // repo names to hide (add your CV/portfolio repo here)
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -70,6 +75,76 @@ async function fetchJSON(url) {
 }
 
 // ---------------------------------------------------------------------------
+// Projects: live from GitHub, falling back to projects.json
+// ---------------------------------------------------------------------------
+const usernameFrom = (githubURL) => {
+    try {
+        return new URL(githubURL).pathname.split("/").filter(Boolean)[0] || "";
+    } catch {
+        return "";
+    }
+};
+
+// "customer-churn-prediction" -> "Customer churn prediction"
+const prettifyRepoName = (name) =>
+    name.replace(/[-_]+/g, " ").replace(/^./, (c) => c.toUpperCase());
+
+async function fetchGitHubProjects(username) {
+    const cacheKey = `gh-repos:${username}`;
+
+    try {
+        const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
+        if (cached && Date.now() - cached.time < GITHUB_CACHE_MINUTES * 60000) {
+            return cached.projects;
+        }
+    } catch {
+        // storage unavailable or corrupted: just fetch fresh
+    }
+
+    const repos = await fetchJSON(
+        `https://api.github.com/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=100`
+    );
+
+    const projects = repos
+        .filter((repo) => !repo.fork && !repo.archived && !EXCLUDED_REPOS.includes(repo.name))
+        .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at))
+        .slice(0, MAX_PROJECTS)
+        .map((repo) => ({
+            title: prettifyRepoName(repo.name),
+            url: repo.html_url
+        }));
+
+    try {
+        localStorage.setItem(cacheKey, JSON.stringify({ time: Date.now(), projects }));
+    } catch {
+        // ignore: caching is optional
+    }
+
+    return projects;
+}
+
+async function loadProjects(profile) {
+    const username = usernameFrom(profile.github);
+
+    if (username) {
+        try {
+            const live = await fetchGitHubProjects(username);
+            if (live.length) return live;
+        } catch (error) {
+            console.warn("GitHub fetch failed, using projects.json instead:", error);
+        }
+    }
+
+    try {
+        const data = await fetchJSON(PROJECTS_DATA_URL);
+        return Array.isArray(data) ? data : data.projects || [];
+    } catch (error) {
+        console.warn("Could not load projects.json:", error);
+        return [];
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Renderers
 // ---------------------------------------------------------------------------
 function renderProfile(profile) {
@@ -101,8 +176,8 @@ function renderEducation(education) {
         );
         const coursework = item.relevantCoursework?.length
             ? `<p><strong>Relevant coursework:</strong> ${item.relevantCoursework
-                .map(escapeHTML)
-                .join(", ")}</p>`
+                  .map(escapeHTML)
+                  .join(", ")}</p>`
             : "";
 
         return `
@@ -139,10 +214,6 @@ function renderProjects(projects) {
         return `
             <article class="cv-item">
                 ${heading ? `<h3>${heading}</h3>` : ""}
-                ${tag("p", project.description)}
-                ${project.language
-                    ? `<p><strong>Technology:</strong> ${escapeHTML(project.language)}</p>`
-                    : ""}
             </article>
         `;
     });
@@ -156,14 +227,17 @@ const OPTIONAL_SECTIONS = [
         id: "experience",
         title: "Experience",
         preference: "showExperience",
-        render: (item) => `
-            <article class="cv-item">
-                ${tag("h3", item.title)}
-                ${tag("p", item.organization)}
-                ${tag("p", range(item.startDate, item.endDate))}
-                ${tag("p", item.description)}
-            </article>
-        `
+        render: (raw) => {
+            const item = typeof raw === "string" ? { description: raw } : raw;
+            return `
+                <article class="cv-item">
+                    ${tag("h3", item.title)}
+                    ${tag("p", item.organization)}
+                    ${tag("p", range(item.startDate, item.endDate))}
+                    ${tag("p", item.description)}
+                </article>
+            `;
+        }
     },
     {
         id: "volunteering",
@@ -225,14 +299,8 @@ async function loadCV() {
     });
 
     try {
-        const [cv, projectData] = await Promise.all([
-            fetchJSON(CV_DATA_URL),
-            fetchJSON(PROJECTS_DATA_URL)
-        ]);
-
-        const projects = Array.isArray(projectData)
-            ? projectData
-            : projectData.projects || [];
+        const cv = await fetchJSON(CV_DATA_URL);
+        const projects = await loadProjects(cv.profile || {});
 
         container.innerHTML = [
             renderProfile(cv.profile || {}),

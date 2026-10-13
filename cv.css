@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
-Tokens
-Palette: paper, surface, ink, muted, rule, accent (+ a faint plot grid).
-Type: Georgia-style serif for name and section titles, system sans for body.
+   Tokens
+   Palette: paper, surface, ink, muted, rule, accent (+ a faint plot grid).
+   Type: Georgia-style serif for name and section titles, system sans for body.
 --------------------------------------------------------------------------- */
 :root {
     --paper: #f3f6f9;
@@ -32,7 +32,7 @@ Type: Georgia-style serif for name and section titles, system sans for body.
 }
 
 /* ---------------------------------------------------------------------------
-Base
+   Base
 --------------------------------------------------------------------------- */
 *,
 *::before,
@@ -262,6 +262,11 @@ header nav {
 
 .cv-item p {
     margin: 0.2rem 0;
+}
+
+/* Projects are headings only, so they sit closer together */
+#projects .cv-item {
+    margin-bottom: 0.6rem;
 }
 
 /* Skills: label column + values column */
