@@ -22,7 +22,7 @@ const safeURL = (url) => {
     if (!url) return "";
     try {
         const { protocol } = new URL(url, window.location.href);
-        return ["http:", "https:", "mailto:"].includes(protocol) ? String(url) : "";
+        return ["http:", "https:", "mailto:", "tel:"].includes(protocol) ? String(url) : "";
     } catch {
         return "";
     }
@@ -32,7 +32,7 @@ const safeURL = (url) => {
 const link = (url, label) => {
     const href = safeURL(url);
     if (!href || !label) return "";
-    const external = !href.startsWith("mailto:");
+    const external = /^https?:/.test(href);
     return `<a href="${escapeHTML(href)}"${
         external ? ' target="_blank" rel="noopener noreferrer"' : ""
     }>${escapeHTML(label)}</a>`;
@@ -165,6 +165,7 @@ function renderProfile(profile) {
             ? `<span class="cv-contact-item">${escapeHTML(profile.location)}</span>`
             : "",
         contactItem("Email", profile.email && `mailto:${profile.email}`, profile.email),
+        contactItem("Phone", profile.phone && `tel:${String(profile.phone).replace(/[^\d+]/g, "")}`, profile.phone),
         contactItem("GitHub", profile.github, displayURL(profile.github)),
         contactItem("Portfolio", profile.portfolio, displayURL(profile.portfolio)),
         contactItem("LinkedIn", profile.linkedin, displayURL(profile.linkedin))
