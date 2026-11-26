@@ -230,11 +230,13 @@ function renderProjects(projects) {
         return `
             <article class="cv-item">
                 ${heading ? `<h3>${heading}</h3>` : ""}
+                ${project.stack ? `<p><strong>${escapeHTML(project.stack)}</strong></p>` : ""}
+                ${tag("p", project.description)}
             </article>
         `;
     });
 
-    return section("projects", "Projects", items.join(""));
+    return section("projects", "Key Projects", items.join(""));
 }
 
 // Optional sections: rendered only if the data exists and the preference isn't false.
@@ -316,8 +318,9 @@ async function loadCV() {
 
     try {
         const cv = await fetchJSON(CV_DATA_URL);
-        const projects = await loadProjects(cv.profile || {});
-
+        const projects = Array.isArray(cv.keyProjects) && cv.keyProjects.length
+            ? cv.keyProjects
+            : await loadProjects(cv.profile || {});
         container.innerHTML = [
             renderProfile(cv.profile || {}),
             renderEducation(cv.education || []),

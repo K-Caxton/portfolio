@@ -1,112 +1,127 @@
 {
-"targetRoles": [
+  "targetRoles": [
     "Data Analyst Intern",
     "Data Scientist Intern"
-],
-"profile": {
+  ],
+  "profile": {
     "name": "Caxton Kiptoo",
     "headline": "Statistics and Data Science Student",
-    "subtitle": "Aspiring Data Scientist, Analyst and Engineer",
-    "summary": "Statistics and Data Science student at Strathmore University building practical data analysis and machine learning projects using Python. Interested in turning data into meaningful insights that support informed decision-making.",
+    "subtitle": "Aspiring Data Analyst & Data Scientist",
+    "summary": "Statistics and Data Science undergraduate at Strathmore University building end-to-end data analysis, business intelligence, and machine learning projects in Python. Experienced in transforming raw datasets into predictive models and interactive dashboards that support data-driven decisions.",
     "tagline": "Turning Data into Insights, Solutions, Decisions",
-    "location": "Kenya",
+    "location": "Nairobi, Kenya",
     "email": "caxtonkiptoo9@gmail.com",
     "phone": "+254 723 940 117",
     "github": "https://github.com/K-Caxton",
     "portfolio": "https://k-caxton.github.io/portfolio/",
     "linkedin": ""
-},
-"education": [
+  },
+  "education": [
     {
-    "institution": "Strathmore University",
-    "qualification": "BSc Statistics and Data Science",
-    "startYear": 2023,
-    "endYear": null,
-    "status": "In progress",
-    "grade": "",
-    "relevantCoursework": [
+      "institution": "Strathmore University",
+      "qualification": "BSc Statistics and Data Science",
+      "startYear": 2024,
+      "endYear": null,
+      "status": "In progress",
+      "grade": "",
+      "relevantCoursework": [
         "Statistics",
         "Machine Learning",
         "Databases",
         "Python",
         "Exploratory Data Analysis (EDA)",
         "Data Visualization and Exploration (DVE)"
-    ]
+      ]
     },
     {
-    "institution": "Maranda High School",
-    "qualification": "Kenya Certificate of Secondary Education (KCSE)",
-    "startYear": 2020,
-    "endYear": 2023,
-    "grade": "B+"
-    },
-    {
-    "institution": "Chumo Educational Center",
-    "qualification": "Kenya Certificate of Primary Education (KCPE)",
-    "startYear": 2010,
-    "endYear": 2019,
-    "grade": "A Plain"
-    }   
-],
-"skills": {
+      "institution": "Maranda High School",
+      "qualification": "Kenya Certificate of Secondary Education (KCSE)",
+      "startYear": 2020,
+      "endYear": 2023,
+      "grade": "B+"
+    }
+  ],
+  "skills": {
     "programming": [
-    "Python"
+      "Python",
+      "SQL"
     ],
     "dataAnalysis": [
-    "Pandas",
-    "Exploratory Data Analysis",
-    "Data Cleaning",
-    "Statistical Analysis"
+      "Pandas",
+      "Exploratory Data Analysis",
+      "Data Cleaning",
+      "Statistical Analysis"
     ],
     "machineLearning": [
-    "Scikit-learn",
-    "Model Evaluation"
+      "Scikit-learn",
+      "Time-Series Forecasting (SARIMA)",
+      "NLP / Transformers (AfroXLMR)",
+      "Model Evaluation"
     ],
     "visualization": [
-    "Matplotlib",
-    "Seaborn",
-    "Power BI (learning)"
+      "Power BI",
+      "Matplotlib",
+      "Seaborn"
     ],
     "tools": [
-    "Jupyter Notebook",
-    "Git",
-    "GitHub",
-    "Streamlit"
+      "Jupyter Notebook",
+      "Git",
+      "GitHub",
+      "Streamlit"
     ],
     "other": [
-    "Problem Solving",
-    "Teamwork"
+      "Problem Solving",
+      "Teamwork"
     ]
-},
-"key projects": [
-"Kenyan Misinformation Detector: Fine-tuning AfroXLMR-Base to detect political misinformation in Kiswahili, Sheng, and English is a genuinely standout NLP project. It shows you can work with transformers and real-world regional data, not just clean CSVs.",
-"Sales Forecasting & Business Intelligence: Built an end-to-end retail analytics pipeline using Python (SARIMA) for time-series sales forecasting and Power BI for interactive dashboarding, analyzing regional trends, product category profitability, and discount strategies to surface actionable business insights.",
-"Customer Churn Prediction System: Engineered and evaluated multiple classification models (including Logistic Regression) in Scikit-learn to predict high-risk customer churn, deploying the final pipeline as an interactive Streamlit web application.",
-"Financial Inclusion Prediction: Comparing 4 ML models on the Financial Inclusion in Africa dataset is much stronger and more relevant to the East African market than a generic house price regression."
-],
-"experience": [
-"BSc. Statistics and Data Science coursework projects; individual and group projects and assignments"
-],
-"volunteering": [
+  },
+  "keyProjects": [
     {
-    "title": "Service-Based Learning Volunteer",
-    "organization": "Heritage of Faith and Hope Children's Home and School",
-    "startDate": "2nd February 2026",
-    "endDate": "13th March 2026",
-    "description": "Provided assistance and support at the orphanage, which also served as a school, from 2nd February 2026 to 13th March 2026.",
-    "status": "Completed."
+      "title": "Kenyan Misinformation Detector",
+      "stack": "Python • AfroXLMR-Base • NLP",
+      "url": "https://github.com/K-Caxton/Kenyan-Misinformation-Detector",
+      "description": "Fine-tuned an AfroXLMR-Base transformer classifier in Python to detect political misinformation across multilingual Kenyan social media posts written in English, Kiswahili, and Sheng."
+    },
+    {
+      "title": "Sales Forecasting & Business Intelligence",
+      "stack": "Python (SARIMA) • Power BI",
+      "url": "https://github.com/K-Caxton/Sales-Forecasting-and-Business-Intelligence",
+      "description": "Built an end-to-end retail analytics pipeline using Python (SARIMA) for time-series sales forecasting and Power BI for interactive dashboarding, analyzing regional trends, product category profitability, and discount strategies to surface actionable business insights."
+    },
+    {
+      "title": "Customer Churn Prediction System",
+      "stack": "Python • Scikit-learn • Streamlit",
+      "url": "https://github.com/K-Caxton/Customer-Churn-Prediction-System",
+      "description": "Engineered and evaluated multiple classification models (including Logistic Regression) in Scikit-learn to predict high-risk customer churn, deploying the final pipeline as an interactive Streamlit web application."
+    },
+    {
+      "title": "Financial Inclusion Prediction (East Africa)",
+      "stack": "Python • Scikit-learn",
+      "url": "https://github.com/K-Caxton/Financial-Inclusion-Prediction",
+      "description": "Benchmarked four supervised machine learning algorithms on the Financial Inclusion in Africa dataset to identify key demographic and socioeconomic predictors of bank account access across East Africa."
     }
-],
-"certifications": [],
-"licenses": [],
-"additionalActivities": [],
-"projectsSource": "projects.json",
-"preferences": {
-    "showAchievements": true,
-    "showExperience": true,
+  ],
+  "experience": [],
+  "volunteering": [
+    {
+      "title": "Service-Based Learning Volunteer",
+      "organization": "Heritage of Faith and Hope Children's Home and School",
+      "startDate": "2nd February 2026",
+      "endDate": "13th March 2026",
+      "description": "Provided academic and operational support at the children's home and school.",
+      "status": "Completed."
+    }
+  ],
+  "achievements": [],
+  "certifications": [],
+  "licenses": [],
+  "additionalActivities": [],
+  "projectsSource": "projects.json",
+  "preferences": {
+    "showAchievements": false,
+    "showExperience": false,
     "showVolunteering": true,
-    "showCertifications": true,
+    "showCertifications": false,
     "showLicenses": false,
-    "showAdditionalActivities": true
-}
+    "showAdditionalActivities": false
+  }
 }
