@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    Tokens
    Palette: paper, surface, ink, muted, rule, accent (+ a faint plot grid).
-   Type: Georgia-style serif for name and section titles, system sans for body.
+   Type: Georgia-style serif for name and section titles, clean sans for body.
 --------------------------------------------------------------------------- */
 :root {
     --paper: #f3f6f9;
@@ -13,7 +13,7 @@
     --grid: rgba(43, 80, 170, 0.08);
 
     --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --sans: Arial, Helvetica, sans-serif;
 
     --content-width: 760px;
     --header-height: 3.5rem;
@@ -58,9 +58,6 @@ body {
     font-size: 1rem;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-}
 }
 
 a {
@@ -194,6 +191,7 @@ header nav {
     font-size: 1.15rem;
     font-weight: 600;
 }
+
 .cv-profile .cv-subtitle {
     margin: -0.75rem 0 1.25rem;
     color: var(--ink);
@@ -286,9 +284,8 @@ header nav {
     margin: 0.2rem 0;
 }
 
-/* Projects are headings only, so they sit closer together */
 #projects .cv-item {
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.25rem;
 }
 
 /* Skills: label column + values column */
@@ -344,7 +341,7 @@ header nav {
    Print / Save as PDF
 --------------------------------------------------------------------------- */
 @page {
-    margin: 14mm;
+    margin: 12mm;
 }
 
 @media print {
@@ -358,8 +355,9 @@ header nav {
     }
 
     body {
-        font-size: 10.5pt;
-        line-height: 1.5;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 9.75pt;
+        line-height: 1.4;
     }
 
     header {
@@ -372,7 +370,7 @@ header nav {
     }
 
     .cv-profile {
-        padding: 0 0 1rem;
+        padding: 0 0 0.65rem;
         border: 0;
         border-bottom: 1px solid var(--rule);
         border-radius: 0;
@@ -382,17 +380,70 @@ header nav {
         display: none;
     }
 
-    .cv-section {
-        margin-top: 1.5rem;
+    .cv-profile h1 {
+        font-size: 20pt;
     }
 
-    .cv-item,
-    #skills p {
-        break-inside: avoid;
+    .cv-profile .cv-headline {
+        margin: 0.25rem 0 0.4rem;
+        font-size: 10.5pt;
+    }
+
+    .cv-profile .cv-subtitle {
+        margin: -0.2rem 0 0.5rem;
+        font-size: 9.75pt;
+    }
+
+    .cv-profile p {
+        max-width: none;
+        margin: 0 0 0.35rem;
+    }
+
+    .cv-profile .cv-contact {
+        margin: 0.5rem 0 0;
+        padding-top: 0.5rem;
+        font-size: 9pt;
+    }
+
+    .cv-section {
+        margin-top: 0.9rem;
+        padding-left: 1rem;
     }
 
     .cv-section h2 {
+        margin: 0 0 0.5rem;
+        font-size: 12pt;
         break-after: avoid;
+    }
+
+    .cv-item {
+        margin-bottom: 0.65rem;
+        break-inside: avoid;
+    }
+
+    .cv-item::before {
+        top: 0.55rem;
+        left: calc(-1rem - 2px);
+        width: 0.6rem;
+    }
+
+    .cv-item h3 {
+        font-size: 10pt;
+        margin-bottom: 0.1rem;
+    }
+
+    .cv-item p {
+        margin: 0.1rem 0;
+    }
+
+    #projects .cv-item {
+        margin-bottom: 0.65rem;
+    }
+
+    #skills p {
+        grid-template-columns: 9.5rem 1fr;
+        margin: 0 0 0.25rem;
+        break-inside: avoid;
     }
 
     a {
