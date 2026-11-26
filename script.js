@@ -35,15 +35,10 @@ let wordIndex = 0;
 const rotatingEl = document.getElementById('rotatingWord');
 
 if (rotatingEl) {
-
     setInterval(() => {
-
         wordIndex = (wordIndex + 1) % words.length;
-
         rotatingEl.textContent = words[wordIndex];
-
     }, 1500);
-
 }
 
 
@@ -51,43 +46,30 @@ if (rotatingEl) {
 // Stat counters
 // ─────────────────────────────────────────────
 
-function animateCounters() {
+function animateValue(el, target) {
+    const duration = 1600;
+    const start = performance.now();
 
-    document.querySelectorAll('.counter').forEach(el => {
+    function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
 
-        const target = +el.dataset.target;
+        el.textContent = Math.floor(eased * target);
 
-        const duration = 1600;
-
-        const start = performance.now();
-
-        function tick(now) {
-
-            const progress = Math.min(
-                (now - start) / duration,
-                1
-            );
-
-            const eased = 1 - Math.pow(1 - progress, 3);
-
-            el.textContent = Math.floor(eased * target);
-
-            if (progress < 1) {
-
-                requestAnimationFrame(tick);
-
-            } else {
-
-                el.textContent = target;
-
-            }
-
+        if (progress < 1) {
+            requestAnimationFrame(tick);
+        } else {
+            el.textContent = target;
         }
+    }
 
-        requestAnimationFrame(tick);
+    requestAnimationFrame(tick);
+}
 
+function animateCounters() {
+    document.querySelectorAll('.counter:not(#project-count)').forEach(el => {
+        animateValue(el, +el.dataset.target);
     });
-
 }
 
 setTimeout(animateCounters, 800);
@@ -98,24 +80,16 @@ setTimeout(animateCounters, 800);
 // ─────────────────────────────────────────────
 
 const revealObserver = new IntersectionObserver(
-
     entries => entries.forEach(entry => {
-
         if (entry.isIntersecting) {
-
             entry.target.classList.add('visible');
-
             revealObserver.unobserve(entry.target);
-
         }
-
     }),
-
     {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     }
-
 );
 
 document
@@ -128,30 +102,21 @@ document
 // ─────────────────────────────────────────────
 
 const sectionObserver = new IntersectionObserver(
-
     entries => entries.forEach(entry => {
-
         if (entry.isIntersecting) {
-
             const id = entry.target.id;
 
             navAnchors.forEach(a => {
-
                 a.classList.toggle(
                     'active',
                     a.getAttribute('href') === `#${id}`
                 );
-
             });
-
         }
-
     }),
-
     {
         threshold: 0.35
     }
-
 );
 
 sections.forEach(s => sectionObserver.observe(s));
@@ -161,8 +126,7 @@ sections.forEach(s => sectionObserver.observe(s));
 // GitHub Portfolio Automation
 // ─────────────────────────────────────────────
 
-const githubProjectsContainer =
-    document.getElementById('projects-grid');
+const githubProjectsContainer = document.getElementById('projects-grid');
 
 async function loadGitHubProjects() {
     if (!githubProjectsContainer) {
@@ -170,20 +134,19 @@ async function loadGitHubProjects() {
     }
 
     try {
-        const response = await fetch('projects.json');
+        const response = await fetch('projects.json', { cache: 'no-cache' });
 
         if (!response.ok) {
             throw new Error(`projects.json returned ${response.status}`);
         }
 
         const data = await response.json();
-        const projects = data.projects || [];
-        
+        const projects = Array.isArray(data) ? data : (data.projects || []);
         const projectCount = document.getElementById('project-count');
-        
+
         if (projectCount) {
             projectCount.dataset.target = projects.length;
-            projectCount.textContent = projects.length;
+            animateValue(projectCount, projects.length);
         }
 
         githubProjectsContainer.innerHTML = '';
@@ -262,4 +225,3 @@ function createProjectCard(project) {
 }
 
 loadGitHubProjects();
-console.log("GitHub loader started");
