@@ -503,6 +503,8 @@ header.scrolled {
 .reveal.visible .skill-tag:nth-child(8)  { transition-delay: 0.40s; }
 .reveal.visible .skill-tag:nth-child(9)  { transition-delay: 0.45s; }
 .reveal.visible .skill-tag:nth-child(10) { transition-delay: 0.50s; }
+.reveal.visible .skill-tag:nth-child(11) { transition-delay: 0.55s; }
+.reveal.visible .skill-tag:nth-child(12) { transition-delay: 0.60s; }
 
 .skill-tag:hover {
     border-color: var(--cyan);
@@ -612,148 +614,6 @@ header.scrolled {
 
 .project-link:hover {
     gap: 14px;
-
-/* ── Legacy featured project (removed) ── */
-    border-radius: calc(var(--radius) + 4px);
-    overflow: hidden;
-    background: var(--bg);
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.35s, transform 0.35s var(--ease-out);
-    position: relative;
-    padding: 2px;
-    background: linear-gradient(135deg, var(--blue), var(--cyan), var(--purple));
-    background-size: 200% 200%;
-    animation: border-shift 6s ease infinite;
-}
-
-@keyframes border-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50%       { background-position: 100% 50%; }
-}
-
-.project-featured-inner {
-    background: var(--bg);
-    border-radius: calc(var(--radius) + 2px);
-}
-
-.project-featured:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-5px);
-}
-
-.project-featured > .project-featured-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.project-left {
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.project-tag {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--blue);
-    background: rgba(37, 99, 235, 0.08);
-    padding: 5px 12px;
-    border-radius: 6px;
-}
-
-.project-left h3 {
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--navy);
-    margin-bottom: 16px;
-}
-
-.project-left p {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-bottom: 14px;
-}
-
-.project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: auto;
-    padding-top: 20px;
-    font-weight: 700;
-    font-size: 0.925rem;
-    color: var(--blue);
-    text-decoration: none;
-    transition: gap 0.25s;
-}
-
-.project-link:hover { gap: 14px; }
-
-.project-right {
-    background: var(--navy);
-    padding: 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.project-visual {
-    display: flex;
-    align-items: flex-end;
-    gap: 12px;
-    height: 160px;
-    width: 100%;
-    max-width: 280px;
-}
-
-.visual-bar {
-    flex: 1;
-    height: var(--h);
-    background: linear-gradient(to top, var(--blue), var(--cyan));
-    border-radius: 6px 6px 0 0;
-    opacity: 0;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: opacity 0.5s, transform 0.6s var(--ease-out);
-}
-
-.reveal.visible .visual-bar {
-    opacity: 1;
-    transform: scaleY(1);
-    animation: bar-pulse 3s ease-in-out infinite;
-}
-
-@keyframes bar-pulse {
-    0%, 100% { filter: brightness(1); }
-    50%       { filter: brightness(1.2); }
-}
-
-.reveal.visible .visual-bar:nth-child(odd) { animation-delay: 0.5s; }
-
-.reveal.visible .visual-bar:nth-child(1) { transition-delay: 0.2s; }
-.reveal.visible .visual-bar:nth-child(2) { transition-delay: 0.3s; }
-.reveal.visible .visual-bar:nth-child(3) { transition-delay: 0.4s; }
-.reveal.visible .visual-bar:nth-child(4) { transition-delay: 0.5s; }
-.reveal.visible .visual-bar:nth-child(5) { transition-delay: 0.6s; }
-.reveal.visible .visual-bar:nth-child(6) { transition-delay: 0.7s; }
-
-.visual-caption {
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.04em;
-    text-align: center;
 }
 
 /* ── Contact ── */
@@ -838,9 +698,6 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
     .about-grid,
     .contact-grid { grid-template-columns: 1fr; }
 
-    .project-featured-inner { grid-template-columns: 1fr; }
-    .project-left, .project-right { padding: 32px 24px; }
-
     .section { padding: 72px 0; }
 }
 
@@ -850,13 +707,13 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
         transition-duration: 0.01ms !important;
     }
 
-    .reveal, .reveal-item, .skill-tag, .visual-bar, .hero-content > * {
+    .reveal, .reveal-item, .skill-tag, .hero-content > * {
         opacity: 1 !important;
         transform: none !important;
     }
 }
-/* ── GitHub Projects ── */
 
+/* ── GitHub Projects ── */
 .github-projects-wrap {
     margin-top: 64px;
 }
@@ -911,17 +768,9 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
     left: 0;
     right: 0;
     height: 3px;
-
-    background: linear-gradient(
-        90deg,
-        var(--blue),
-        var(--cyan),
-        var(--purple)
-    );
-
+    background: linear-gradient(90deg, var(--blue), var(--cyan), var(--purple));
     transform: scaleX(0);
     transform-origin: left;
-
     transition: transform 0.4s var(--ease-out);
 }
 
@@ -942,7 +791,7 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
     margin-bottom: 18px;
 }
 
-.github-project-card h4 {
+.github-project-card h3 {
     font-size: 1.2rem;
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -953,12 +802,18 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
 .github-project-description {
     font-size: 0.9rem;
     color: var(--muted);
-    margin-bottom: 20px;
-
+    margin-bottom: 16px;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.github-project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .github-project-footer {
@@ -985,12 +840,10 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
     display: inline-flex;
     align-items: center;
     gap: 6px;
-
     font-size: 0.8rem;
     font-weight: 700;
     color: var(--blue);
     text-decoration: none;
-
     transition: gap 0.25s;
 }
 
@@ -1011,7 +864,6 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
 }
 
 @media (max-width: 768px) {
-
     .github-projects {
         grid-template-columns: 1fr;
     }
@@ -1023,5 +875,4 @@ footer p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); }
     .github-project-card {
         padding: 24px;
     }
-
 }
