@@ -265,6 +265,7 @@ const OPTIONAL_SECTIONS = [
             <article class="cv-item">
                 ${tag("h3", item.title)}
                 ${tag("p", item.organization)}
+                ${tag("p", range(item.startDate, item.endDate))}
                 ${tag("p", item.description)}
             </article>
         `
