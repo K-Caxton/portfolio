@@ -1,7 +1,7 @@
 /* ---------------------------------------------------------------------------
    Tokens
    Palette: paper, surface, ink, muted, rule, accent (+ a faint plot grid).
-   Type: Georgia-style serif for name and section titles, clean sans for body.
+   Type: Georgia-style serif for name and section titles, Plus Jakarta Sans for body.
 --------------------------------------------------------------------------- */
 :root {
     --paper: #f3f6f9;
@@ -13,7 +13,7 @@
     --grid: rgba(43, 80, 170, 0.08);
 
     --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
-    --sans: Arial, Helvetica, sans-serif;
+    --sans: 'Plus Jakarta Sans', sans-serif;
 
     --content-width: 760px;
     --header-height: 3.5rem;
@@ -88,7 +88,6 @@ header {
     align-items: center;
     gap: 0.25rem 1.5rem;
     min-height: var(--header-height);
-    /* lines the header content up with the CV column below it */
     padding: 0.5rem max(1.25rem, calc((100% - var(--content-width)) / 2));
     background: color-mix(in srgb, var(--paper) 88%, transparent);
     -webkit-backdrop-filter: blur(8px);
@@ -107,7 +106,6 @@ header a:hover {
     text-decoration: underline;
 }
 
-/* your name in the header: plain text, not a link */
 .brand {
     margin-right: 0.5rem;
     font-family: var(--serif);
@@ -149,7 +147,7 @@ header nav {
 }
 
 /* ---------------------------------------------------------------------------
-   Profile: the one memorable element, a plot-paper panel
+   Profile
 --------------------------------------------------------------------------- */
 .cv-profile {
     position: relative;
@@ -232,7 +230,7 @@ header nav {
 }
 
 /* ---------------------------------------------------------------------------
-   Sections: a left rule works as an axis, entries sit on it as ticks
+   Sections
 --------------------------------------------------------------------------- */
 .cv-section {
     position: relative;
@@ -288,7 +286,6 @@ header nav {
     margin-bottom: 1.25rem;
 }
 
-/* Skills: label column + values column */
 #skills p {
     display: grid;
     grid-template-columns: 11rem 1fr;
@@ -301,7 +298,6 @@ header nav {
     font-weight: 600;
 }
 
-/* Plain-text lists (achievements, certifications, etc.) */
 .cv-section > p {
     margin: 0 0 0.5rem;
 }
@@ -341,7 +337,7 @@ header nav {
    Print / Save as PDF
 --------------------------------------------------------------------------- */
 @page {
-    margin: 12mm;
+    margin: 10mm;
 }
 
 @media print {
@@ -355,9 +351,9 @@ header nav {
     }
 
     body {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 9.75pt;
-        line-height: 1.4;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 9pt;
+        line-height: 1.38;
     }
 
     header {
@@ -370,7 +366,7 @@ header nav {
     }
 
     .cv-profile {
-        padding: 0 0 0.65rem;
+        padding: 0 0 0.55rem;
         border: 0;
         border-bottom: 1px solid var(--rule);
         border-radius: 0;
@@ -381,68 +377,68 @@ header nav {
     }
 
     .cv-profile h1 {
-        font-size: 20pt;
+        font-size: 19pt;
     }
 
     .cv-profile .cv-headline {
-        margin: 0.25rem 0 0.4rem;
-        font-size: 10.5pt;
+        margin: 0.2rem 0 0.35rem;
+        font-size: 10pt;
     }
 
     .cv-profile .cv-subtitle {
-        margin: -0.2rem 0 0.5rem;
-        font-size: 9.75pt;
+        margin: -0.15rem 0 0.4rem;
+        font-size: 9.25pt;
     }
 
     .cv-profile p {
         max-width: none;
-        margin: 0 0 0.35rem;
+        margin: 0 0 0.3rem;
     }
 
     .cv-profile .cv-contact {
-        margin: 0.5rem 0 0;
-        padding-top: 0.5rem;
-        font-size: 9pt;
+        margin: 0.4rem 0 0;
+        padding-top: 0.4rem;
+        font-size: 8.5pt;
     }
 
     .cv-section {
-        margin-top: 0.9rem;
-        padding-left: 1rem;
+        margin-top: 0.75rem;
+        padding-left: 0.9rem;
     }
 
     .cv-section h2 {
-        margin: 0 0 0.5rem;
-        font-size: 12pt;
+        margin: 0 0 0.4rem;
+        font-size: 11.5pt;
         break-after: avoid;
     }
 
     .cv-item {
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.5rem;
         break-inside: avoid;
     }
 
     .cv-item::before {
-        top: 0.55rem;
-        left: calc(-1rem - 2px);
-        width: 0.6rem;
+        top: 0.5rem;
+        left: calc(-0.9rem - 2px);
+        width: 0.55rem;
     }
 
     .cv-item h3 {
-        font-size: 10pt;
+        font-size: 9.5pt;
         margin-bottom: 0.1rem;
     }
 
     .cv-item p {
-        margin: 0.1rem 0;
+        margin: 0.08rem 0;
     }
 
     #projects .cv-item {
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.5rem;
     }
 
     #skills p {
-        grid-template-columns: 9.5rem 1fr;
-        margin: 0 0 0.25rem;
+        grid-template-columns: 9rem 1fr;
+        margin: 0 0 0.2rem;
         break-inside: avoid;
     }
 
