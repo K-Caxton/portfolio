@@ -125,7 +125,7 @@
     {
       "name": "Cyrus Muthumbi",
       "role": "School Manager",
-      "organization": "Strathmore Institute of Mathematical Sciences, Strathmore University, Nairobi",
+      "organization": "Institute of Mathematical Sciences, Strathmore University, Nairobi",
       "email": "CMuthumbi@strathmore.edu"
     }
   ],
@@ -137,6 +137,6 @@
     "showCertifications": false,
     "showLicenses": false,
     "showAdditionalActivities": false,
-    "showReferees": true
+    "showReferees": false
   }
 }
