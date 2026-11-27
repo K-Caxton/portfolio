@@ -115,6 +115,20 @@
   "certifications": [],
   "licenses": [],
   "additionalActivities": [],
+  "referees": [
+    {
+      "name": "Dr. Elvice Ongong'a, PhD",
+      "role": "Academic Director & Lecturer",
+      "organization": "Strathmore Institute of Mathematical Sciences, Strathmore University, Nairobi",
+      "email": "eongonga@strathmore.edu"
+    },
+    {
+      "name": "Cyrus Muthumbi",
+      "role": "School Manager",
+      "organization": "Institute of Mathematical Sciences, Strathmore University, Nairobi",
+      "email": "CMuthumbi@strathmore.edu"
+    }
+  ],
   "projectsSource": "projects.json",
   "preferences": {
     "showAchievements": false,
@@ -122,6 +136,7 @@
     "showVolunteering": true,
     "showCertifications": false,
     "showLicenses": false,
-    "showAdditionalActivities": false
+    "showAdditionalActivities": false,
+    "showReferees": true
   }
 }

@@ -293,6 +293,26 @@ const OPTIONAL_SECTIONS = [
         title: "Additional Activities",
         preference: "showAdditionalActivities",
         render: (item) => tag("p", textOf(item, "title"))
+    },
+    {
+        id: "referees",
+        title: "Referees",
+        preference: "showReferees",
+        render: (item) => {
+            const contact = [
+                item.email ? `Email: ${link(`mailto:${item.email}`, item.email)}` : "",
+                item.phone ? `Tel: ${link(`tel:${String(item.phone).replace(/[^\d+]/g, "")}`, item.phone)}` : ""
+            ].filter(Boolean).join(" • ");
+
+            return `
+                <article class="cv-item">
+                    ${tag("h3", item.name)}
+                    ${item.role ? `<p><strong>${escapeHTML(item.role)}</strong></p>` : ""}
+                    ${tag("p", item.organization)}
+                    ${contact ? `<p>${contact}</p>` : ""}
+                </article>
+            `;
+        }
     }
 ];
 
